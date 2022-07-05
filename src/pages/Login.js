@@ -1,7 +1,4 @@
-import React from 'react';
-import { useRef } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useRef, useEffect, useState, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../img/Instagram_logo.png';
 
@@ -57,8 +54,13 @@ const Login = () => {
   };
 
   const onSubmit = () => {
-    window.localStorage.setItem('loginId', email);
-    navigate('/');
+    if (email === userInfo.email && password === userInfo.password) {
+      window.localStorage.setItem('loginId', email);
+      navigate('/');
+    } else {
+      alert('아이디 및 비밀번호가 일치하지 않습니다.');
+      return;
+    }
   };
 
   return (
@@ -128,6 +130,11 @@ const Login = () => {
       </div>
     </div>
   );
+};
+
+const userInfo = {
+  email: 'xogml1226@naver.com',
+  password: 'New!1234',
 };
 
 export default Login;
